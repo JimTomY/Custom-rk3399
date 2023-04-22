@@ -1,0 +1,8 @@
+#!/bin/sh
+export HOSTNAME=farsight
+export USER=root
+export HOME=root
+export PS1="[jim@ \W]\# "
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+LD_LIBRARY_PATH=/lib:/usr/lib:/usr/lib/x86_64-linux-gnu/libfakeroot:/usr/lib64/libfakeroot:/usr/lib32/libfakeroot
+export PATH LD_LIBRARY_PATH

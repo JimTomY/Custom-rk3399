@@ -1,0 +1,57 @@
+/dts-v1/;
+
+/ {
+	description = "arm64 kernel, initramfs and FDT blob";
+	#address-cells = <1>;
+
+	images {
+		kernel {
+			description = "ARM64 Kernel";
+			data = /incbin/("Image.gz");
+			type = "kernel";
+			arch = "arm64";
+			os = "linux";
+			compression = "gzip";
+			load = <0x12000000>;
+			entry = <0x12000000>;
+			hash {
+				algo = "crc32";
+			};
+		};
+		fdt {
+			description = "dtb for rk3399-firefly";
+			data = /incbin/("rk3399-firefly.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x15000000>;
+			hash {
+				algo = "crc32";
+			};
+		};
+		initramfs {
+			description = "initramfs";
+			data = /incbin/("initramfs_data.cpio.lzma");
+			type = "ramdisk";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <0x16000000>;
+			entry = <0x16000000>;
+			hash {
+				algo = "crc32";
+			};
+		};
+	};
+	configurations {
+		default = "standard";
+
+		standard {
+			description = "config for arm64";
+			kernel = "kernel";
+			fdt = "fdt";
+			ramdisk = "initramfs";
+		};
+	};
+};
