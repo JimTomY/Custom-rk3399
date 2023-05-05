@@ -27,6 +27,7 @@ package: FORCE
 	$(CTC_MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) rockchip/$(KERNEL_DTS); \
 	$(CTC_MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) Image.gz; \
 	echo "Create one image..."; \
+	cp -f $(KERNEL_BUILD_DIR)/arch/arm64/boot/Image $(PROJECT_TOP_DIR)/target/; \
 	cp -f $(KERNEL_BUILD_DIR)/arch/arm64/boot/Image.gz $(PROJECT_TOP_DIR)/target/; \
 	cp -f $(KERNEL_BUILD_DIR)/arch/arm64/boot/dts/rockchip/$(KERNEL_DTS) $(PROJECT_TOP_DIR)/target/; \
 	cp -f $(KERNEL_BUILD_DIR)/initramfs_data.cpio.lzma $(PROJECT_TOP_DIR)/target/; \
@@ -188,7 +189,7 @@ buildroot_defconfig:
 		mkdir -p $(BUILDROOT_BUILD_DIR); \
 		make clean; \
 	fi; \
-	cp -f $(PORTING_DIR)/buildroot-porting/$(BUILDROOT_DEFCONFIG) $(PORTING_DIR)/buildroot-porting/configs/$(BUILDROOT_DEFCONFIG)_backup; \
+	cp -r $(PORTING_DIR)/buildroot-porting/$(BUILDROOT_DEFCONFIG) $(PORTING_DIR)/buildroot-porting/$(BUILDROOT_DEFCONFIG)_backup; \
 	cd $(BUILDROOT_SOURCE_DIR); \
 	make O=$(BUILDROOT_BUILD_DIR) menuconfig; \
 	make savedefconfig; \
